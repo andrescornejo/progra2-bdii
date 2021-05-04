@@ -16,6 +16,8 @@
 *.docx#
 *.bak*
 *.tar
+# Folders
+sql/z_old
 
 #removes folders added by ionide extension
 .ionide/
