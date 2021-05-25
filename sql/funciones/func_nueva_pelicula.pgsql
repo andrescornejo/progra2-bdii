@@ -28,19 +28,26 @@ CREATE or replace FUNCTION func_nueva_pelicula(
     in p_length int,
     in p_replacement_cost numeric(5,2),
     in p_rating mpaa_rating,
+    in p_category_id int,
     in p_special_features text[],
     in p_fulltext tsvector,
     out out_code int
 )
 AS 
 $$
+declare
+    var_film_id int;
 begin
     insert into film(title, description, release_year, language_id, rental_duration,
                     rental_rate, length, replacement_cost,
                     rating, last_update, special_features, fulltext)
     values(p_film_title, p_description, p_release_year, p_lang_id, p_rental_duration,
         p_rental_rate, p_length, p_replacement_cost, p_rating, CURRENT_TIMESTAMP,
-        p_special_features, p_fulltext);
+        p_special_features, p_fulltext)
+        returning film_id into var_film_id;
+
+    insert into film_category(film_id, category_id)
+    values(var_film_id, p_category_id);
 
     out_code := 0;
 	exception

@@ -8,6 +8,7 @@ SELECT public.func_nueva_pelicula(
 	90, 
 	100.99, 
 	'PG-13'::mpaa_rating, 
+	2, -- category_id
 	ARRAY['bts'], 
 	'Tomates xd kolombia'::tsvector
 )
